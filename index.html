@@ -815,8 +815,9 @@ document.getElementById('tbody-inbound').addEventListener('click',async function
     var newDisp=o.disposition===dv?'Pending':dv;
     if(o.disposition==='Received'&&newDisp!=='Received'){await sb.from('items').delete().eq('order_id',oid);inventory=inventory.filter(function(it){return it.order_id!==oid;});}
     if(newDisp==='Received'&&o.disposition!=='Received'){
-      var newItem={user_id:currentUser.id,order_id:oid,order_num:o.order_num||null,order_date:o.order_date||null,name:o.product_name,seller:o.seller,cost:o.price,listing_status:'Unlisted',condition:'New',category_id:null,platform_id:null,location_id:null};
+      var newItem={user_id:currentUser.id,order_id:oid,order_num:o.order_num||null,order_date:o.order_date||null,name:o.product_name,seller:o.seller,cost:o.price,listing_status:'Unlisted',condition:'New',category_id:null,platform_id:null,location_id:null,quantity:1};
       var res=await sb.from('items').insert(newItem).select('*, item_photos(*)').single();
+      if(res.error){console.error('Insert error:',res.error.message);toast('Inventory insert failed: '+res.error.message,'error');return;}
       if(res.data)inventory.unshift(res.data);
     }
     o.disposition=newDisp;
