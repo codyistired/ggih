@@ -1384,8 +1384,9 @@ async function cardSetDisp(btn){
     inventory=inventory.filter(function(it){return it.order_id!==oid;});
   }
   if(newDisp==='Received'&&oldDisp!=='Received'){
-    var ni={user_id:currentUser.id,order_id:oid,name:o.product_name,seller:o.seller,cost:o.price,listing_status:'Unlisted',condition:'New',category_id:null,platform_id:null,location_id:null,quantity:1};
+var ni={user_id:currentUser.id,order_id:oid,order_num:o.order_num||null,order_date:o.order_date||null,name:o.product_name,seller:o.seller,cost:o.price,listing_status:'Unlisted',condition:'New',category_id:null,platform_id:null,location_id:null,quantity:1};
     var res=await sb.from('items').insert(ni).select('*, item_photos(*)').single();
+    if(res.error){console.error('Insert error:',res.error.message);}
     if(res.data) inventory.unshift(res.data);
   }
   o.disposition=newDisp;
