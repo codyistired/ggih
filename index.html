@@ -1324,7 +1324,7 @@ document.getElementById('ib-card-container').addEventListener('click', function(
   var b=e.target.closest('.db');
   if(b){
     var oid=b.getAttribute('data-oid'),disp=b.getAttribute('data-disp');
-    if(oid&&disp) cardSetDisp({getAttribute:function(){return oid;},dataset:{disp:disp}});
+    if(oid&&disp) cardSetDisp({getAttribute:function(attr){return attr==='data-oid'?oid:disp;}});
   }
 });
 
@@ -1463,7 +1463,7 @@ document.getElementById('ib-card-container').addEventListener('click', function(
   var b=e.target.closest('.db');
   if(b){
     var oid=b.getAttribute('data-oid'),disp=b.getAttribute('data-disp');
-    if(oid&&disp) cardSetDisp({getAttribute:function(){return oid;},dataset:{disp:disp}});
+    if(oid&&disp) cardSetDisp({getAttribute:function(attr){return attr==='data-oid'?oid:disp;}});
   }
 });
 
