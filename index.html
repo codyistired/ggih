@@ -1459,13 +1459,6 @@ renderInbound=function(){
   _origRenderInbound2.apply(this,arguments);
   if(ibView==='card') renderInboundCards();
 };
-document.getElementById('ib-card-container').addEventListener('click', function(e){
-  var b=e.target.closest('.db');
-  if(b){
-    var oid=b.getAttribute('data-oid'),disp=b.getAttribute('data-disp');
-    if(oid&&disp) cardSetDisp({getAttribute:function(attr){return attr==='data-oid'?oid:disp;}});
-  }
-});
 
 // ═══════════════ MERGE MODAL ═══════════════
 var mergeSourceId=null;
