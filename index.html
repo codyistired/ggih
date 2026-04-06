@@ -1457,7 +1457,8 @@ renderInventory=function(){
 var _origRenderInbound2=renderInbound;
 renderInbound=function(){
   _origRenderInbound2.apply(this,arguments);
-  if(ibView==='card') 
+  if(ibView==='card') renderInboundCards();
+};
 document.getElementById('ib-card-container').addEventListener('click', function(e){
   var b=e.target.closest('.db');
   if(b){
@@ -1465,9 +1466,6 @@ document.getElementById('ib-card-container').addEventListener('click', function(
     if(oid&&disp) cardSetDisp({getAttribute:function(){return oid;},dataset:{disp:disp}});
   }
 });
-
-renderInboundCards();
-};
 
 // ═══════════════ MERGE MODAL ═══════════════
 var mergeSourceId=null;
@@ -1544,7 +1542,7 @@ function cancelMerge(){
   document.getElementById('merge-modal').classList.remove('open');
   mergeSourceId=null; mergeTargetId=null;
 }
-try{var mm=document.getElementById('merge-modal');if(mm)mm.addEventListener('click',function(e){
+var mm=document.getElementById('merge-modal');if(mm)mm.addEventListener('click',function(e){
   if(e.target===document.getElementById('merge-modal')){
     document.getElementById('merge-modal').classList.remove('open');
     mergeSourceId=null; mergeTargetId=null;
