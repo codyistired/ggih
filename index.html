@@ -1320,13 +1320,6 @@ document.getElementById('ib-vt-card').addEventListener('click', function(){
   document.getElementById('ib-card-container').style.display='';
 });
   
-document.getElementById('ib-card-container').addEventListener('click', function(e){
-  var b=e.target.closest('.db');
-  if(b){
-    var oid=b.getAttribute('data-oid'),disp=b.getAttribute('data-disp');
-    if(oid&&disp) cardSetDisp({getAttribute:function(attr){return attr==='data-oid'?oid:disp;}});
-  }
-});
 
 renderInboundCards();
 
@@ -1362,7 +1355,7 @@ function renderInboundCards(){
     var dt=o.order_date?(new Date(o.order_date+'T00:00:00')).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'2-digit'}):'';
     var disp=o.disposition||'Pending';
     var dispBtns=['Received','Personal','Warehouse','New','NotFound','Pending'].map(function(d){
-      return '<button class="db d-'+d+(disp===d?' db-active':'')+'" data-oid="'+esc(o.id)+'" data-disp="'+d+'" >'+d+'</button>';
+      return '<button class="db d-'+d+(disp===d?' db-active':'')+'" data-oid="'+esc(o.id)+'" data-disp="'+d+'" onclick="cardSetDisp(this)">'+d+'</button>';
     }).join('');
     return '<div class="ib-card" id="ibc-'+esc(o.id)+'">'
       +'<div class="cb-wrap"><input type="checkbox" class="row-cb" data-oid="'+esc(o.id)+'"></div>'
